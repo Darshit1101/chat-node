@@ -1,0 +1,20 @@
+import cors from "cors";
+
+const corsMiddleware = cors({
+  origin(origin, callback) {
+    console.log("CORS Origin===>", origin);
+    if (!origin) return callback(null, true);
+
+    if (
+      origin.startsWith("http://localhost") ||
+      origin.startsWith("http://192.168.")
+    ) {
+      return callback(null, origin);
+    }
+
+    return callback(new Error("CORS blocked"));
+  },
+  credentials: true,
+});
+
+export default corsMiddleware;
