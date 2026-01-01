@@ -29,10 +29,10 @@ const generate2FA = async (req, res) => {
     const { _id, email } = decoded;
 
     const secret = speakeasy.generateSecret({
-      name: `Auth System (${email})`,
+      name: `Chat App (${email})`,
     });
 
-    const otpauthUrl = `otpauth://totp/Auth%20System:%20(${email})?secret=${secret.base32}`;
+    const otpauthUrl = `otpauth://totp/Chat%20App:%20(${email})?secret=${secret.base32}`;
 
     const qrCode = await qrcode.toDataURL(otpauthUrl);
 
