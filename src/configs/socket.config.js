@@ -5,6 +5,7 @@ import { CLIENT_URL, APP_JWT_SECRET } from "./environment.config.js";
 
 let io;
 const onlineUsers = new Map(); // userId -> socketId
+console.log("onlineUsers====>", onlineUsers);
 
 export const initSocket = (server) => {
   io = new Server(server, {
@@ -37,11 +38,11 @@ export const initSocket = (server) => {
     }
   });
 
-  /* ---------- Connection ---------- */
+  // connection
   io.on("connection", (socket) => {
     onlineUsers.set(socket.userId, socket.id);
 
-    /* ---------- Send Message ---------- */
+    // Send Message
     socket.on("send_message", async ({ to, message }) => {
       console.log("send_message payload===>", { to, message });
       if (!to || !message) return;
@@ -57,6 +58,7 @@ export const initSocket = (server) => {
 
         // 2. emit to receiver if online
         const receiverSocketId = onlineUsers.get(to);
+
         if (receiverSocketId) {
           io.to(receiverSocketId).emit("receive_message", newMessage);
         }
