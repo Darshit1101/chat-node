@@ -2,10 +2,8 @@ import Message from "../../../../models/message.model.js";
 
 const getChatHistory = async (req, res) => {
   try {
-    console.log("req.user===>", req.user);
     const currentUserId = req.user._id; // auth middleware se
     const { receiverId } = req.params;
-    console.log("Receiver ID===>", receiverId);
 
     const messages = await Message.find({
       $or: [
