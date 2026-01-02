@@ -2,7 +2,7 @@ import cors from "cors";
 
 const corsMiddleware = cors({
   origin(origin, callback) {
-    console.log("CORS Origin===>", origin);
+    // console.log("CORS Origin===>", origin);
     if (!origin) return callback(null, true);
 
     if (
